@@ -11,7 +11,7 @@ class Test(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"Welcome": "Welcome"}
+    return {"Welcome": "Welcomeだよ！！"}
 
 
 @app.post("/test/")
