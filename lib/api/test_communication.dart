@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<Album> createAlbum(String text1, String text2) async {
+Future<BondText> createBondText(String text1, String text2) async {
   final response = await http.post(
     Uri.parse('https://a2102-fast-api.herokuapp.com/test/'),
     headers: <String, String>{
@@ -18,20 +18,20 @@ Future<Album> createAlbum(String text1, String text2) async {
   );
 
   if (response.statusCode == 200) {
-    return Album.fromJson(jsonDecode(response.body));
+    return BondText.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to create text.');
   }
 }
 
-class Album {
+class BondText {
   final String res;
   final String text;
 
-  Album({required this.res, required this.text});
+  BondText({required this.res, required this.text});
 
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
+  factory BondText.fromJson(Map<String, dynamic> json) {
+    return BondText(
       res: json['res'],
       text: json['text'],
     );
@@ -46,24 +46,24 @@ class TestCommunicationScreen extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyApp(),
+      home: TestApiApp(),
     );
   }
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class TestApiApp extends StatefulWidget {
+  const TestApiApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() {
-    return _MyAppState();
+  _TestApiAppState createState() {
+    return _TestApiAppState();
   }
 }
 
-class _MyAppState extends State<MyApp> {
+class _TestApiAppState extends State<TestApiApp> {
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
-  Future<Album>? _futureAlbum;
+  Future<BondText>? _futureText;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
         body: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8.0),
-          child: (_futureAlbum == null) ? buildColumn() : buildFutureBuilder(),
+          child: (_futureText == null) ? buildColumn() : buildFutureBuilder(),
         ),
       ),
     );
@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
         ElevatedButton(
           onPressed: () {
             setState(() {
-              _futureAlbum = createAlbum(_controller1.text, _controller2.text);
+              _futureText = createBondText(_controller1.text, _controller2.text);
             });
           },
           child: const Text('Create Data'),
@@ -105,16 +105,15 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  FutureBuilder<Album> buildFutureBuilder() {
-    return FutureBuilder<Album>(
-      future: _futureAlbum,
+  FutureBuilder<BondText> buildFutureBuilder() {
+    return FutureBuilder<BondText>(
+      future: _futureText,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Text(snapshot.data!.text);
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
-
         return const CircularProgressIndicator();
       },
     );
