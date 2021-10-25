@@ -17,4 +17,5 @@ def read_root():
 @app.post("/test/")
 def test(req: Test):
     new_str = req.Text1 + req.Text2
-    return {"res": "ok", "text": new_str}
+    utf8_new_str = new_str.encode('utf-8')
+    return {"res": "ok", "text": utf8_new_str}
