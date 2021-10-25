@@ -7,6 +7,7 @@ app = FastAPI()
 origins = [
     "https://jphacks.github.io/A_2102",
     "http://localhost",
+    "http://localhost:8080",
 ]
 
 app.add_middleware(
