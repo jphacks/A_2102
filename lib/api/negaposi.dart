@@ -17,40 +17,52 @@ class NegaposiScreen extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
-class SampleResponse{
-  final String word_list;
+
+class SampleResponse {
+  final String wordList;
+
   SampleResponse({
-    required this.word_list,
+    required this.wordList,
   });
+
   factory SampleResponse.fromJson(Map<String, dynamic> json) {
     return SampleResponse(
-      word_list: json["word_list"],
+      wordList: json["word_list"],
     );
   }
 }
+
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String resultjson = "";
-  Future<SampleResponse> requestApi() async{
-    var url = Uri.parse("https://labs.goo.ne.jp/api/morph");
-    var request = new SampleRequest(app_id: "7b595a6f365dd0c113ec8f7599694e7f4eda87e2de7868683492ab11f26a9b98",
-        sentence:"ツナマヨとシャケはうまい",info_filter: "form",pos_filter: "名詞");
-    final response = await http.post(url,body: json.encode(request.toJson()), headers: {"Content-Type": "application/json"});
-    if (response.statusCode == 200){
-      var ResultText = SampleResponse.fromJson(json.decode(response.body));
-      resultjson =ResultText.word_list;
-    }else{
+  String resultJson = "";
+
+  Future<SampleResponse> requestApi() async {
+    var url = Uri.parse("https://labs.goo.ne.jp/api/morph/");
+    var request = new SampleRequest(
+        appId:
+            "7b595a6f365dd0c113ec8f7599694e7f4eda87e2de7868683492ab11f26a9b98",
+        requestId: "record001",
+        sentence: "ツナマヨとシャケはうまい",
+        infoFilter: "form",
+        posFilter: "名詞");
+    http.Response response = await http.post(url,
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(request.toJson()));
+    if (response.statusCode == 200) {
+      var resultText = SampleResponse.fromJson(json.decode(response.body));
+      resultJson = resultText.wordList;
+      return Future<SampleResponse>.value();
+    } else {
       throw Exception('Failed to load post');
     }
   }
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+
+  @override
+  void initState() {
+    super.initState();
+    requestApi();
   }
 
   @override
@@ -64,39 +76,42 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
+              resultJson,
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 }
+
 class SampleRequest {
-  final String app_id;
-  final String sentence;
-  final String info_filter;
-  final String pos_filter;
-  late final String name;
+  final String? appId;
+  final String? requestId;
+  final String? sentence;
+  final String? infoFilter;
+  final String? posFilter;
+  late final String? name;
+
   SampleRequest({
-    required this.app_id,
+    required this.appId,
+    required this.requestId,
     required this.sentence,
-    required this.info_filter,
-    required this.pos_filter,
+    required this.infoFilter,
+    required this.posFilter,
   });
-  Map<String,dynamic> toJson() =>{
-    "app_id":app_id,
-    "text":sentence,
-    "info_filter":info_filter,
-    "pos_filter":pos_filter,
-  };
+
+  Map<String, dynamic> toJson() => {
+        "app_id": appId,
+        "request_id": requestId,
+        "text": sentence,
+        "info_filter": infoFilter,
+        "pos_filter": posFilter,
+      };
 }
