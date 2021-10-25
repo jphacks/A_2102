@@ -1,0 +1,6 @@
+torch==1.9.0
+git+https://github.com/adapter-hub/adapter-transformers.git
+mecab-python3==0.996.5
+unidic-lite
+fugashi
+ipadic
