@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jphacks2021.a_2102">
-   <application
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
         android:label="a_2102"
         android:icon="@mipmap/ic_launcher">
         <activity
