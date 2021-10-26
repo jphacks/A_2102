@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TitleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return GetMaterialApp(
+      title: 'ぷんぷく侍App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      builder:(context,child){
+        return Scaffold(
+          // drawer:MyDrawer(),
+          body:child,
+        );
+      },
       home: MyHomePage(),
     );
   }
@@ -21,6 +28,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final cnt = 0.obs;
 
   void _incrementCounter() {
     setState(() {
@@ -31,28 +39,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // drawer: MyDrawer(),
       appBar: AppBar(
-        title: Text("title"),
+        title: Text("ぷんぷく侍どっち行く〜",style:TextStyle(color: Colors.black)),backgroundColor:Colors.yellow ,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        child:Container(
+          child: Obx(() => Text("${cnt.value}")),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
+        onPressed: () => cnt.value ++,
       ),
+
     );
   }
 }
