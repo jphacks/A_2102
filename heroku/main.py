@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from heroku.inference import NegaPogi
-from heroku.scraping import scrape
+from inference import NegaPogi
+from scraping import scrape
 from pydantic import BaseModel
 
 app = FastAPI()
