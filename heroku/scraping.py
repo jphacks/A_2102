@@ -16,7 +16,7 @@ def scrape(search_word) -> list:
 
     comp_search_word = search_word + "比較"
 
-    pages_num = 1
+    pages_num = 10
 
     # Googleから検索結果ページを取得する
     url = f'https://www.google.co.jp/search?hl=ja&num={pages_num}&q={comp_search_word}'
