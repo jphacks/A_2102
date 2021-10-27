@@ -12,7 +12,7 @@ import re
 from bs4 import BeautifulSoup
 
 
-def scrape(search_word) -> list(str):
+def scrape(search_word) -> list:
 
     comp_search_word = search_word + "比較"
 
