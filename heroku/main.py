@@ -23,6 +23,15 @@ app.add_middleware(
 )
 
 
+def make_score(text) -> float:
+    sentence = scrape(text)
+    nega_posi_list = []
+    for word in sentence:
+        nega_posi_list.append(nega_posi.predict(word))
+    score = nega_posi_list.count(1) / len(nega_posi_list)
+    return score
+
+
 class ReqText(BaseModel):
     text1: str
     text2: str
@@ -41,14 +50,6 @@ def test(req: ReqText):
 
 @app.post("/comparison/")
 def comparison(req: ReqText):
-    sentence_1 = scrape(req.text1)
-    nega_posi_list_1 = []
-    for word in sentence_1:
-        nega_posi_list_1.append(nega_posi.predict(word))
-    score_1 = nega_posi_list_1.count('positive') / len(nega_posi_list_1)
-    sentence_2 = scrape(req.text2)
-    nega_posi_list_2 = []
-    for word in sentence_2:
-        nega_posi_list_2.append(nega_posi.predict(word))
-    score_2 = nega_posi_list_2.count('positive') / len(nega_posi_list_2)
+    score_1 = make_score(req.text1)
+    score_2 = make_score(req.text2)
     return {"res": "ok", "score_1": score_1, "score_2": score_2}
