@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from heroku.inference import NegaPogi
+from heroku.scraping import scrape
 from pydantic import BaseModel
 
 app = FastAPI()
+
+nega_posi = NegaPogi()
 
 origins = [
     "https://jphacks.github.io/A_2102",
@@ -18,9 +22,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class Test(BaseModel):
-    Text1: str
-    Text2: str
+
+class ReqText(BaseModel):
+    text1: str
+    text2: str
 
 
 @app.get("/")
@@ -29,6 +34,21 @@ def read_root():
 
 
 @app.post("/test/")
-def test(req: Test):
-    new_str = req.Text1 + req.Text2
+def test(req: ReqText):
+    new_str = req.text1 + req.text2
     return {"res": "ok", "text": new_str}
+
+
+@app.post("/comparison/")
+def comparison(req: ReqText):
+    sentence_1 = scrape(req.text1)
+    nega_posi_list_1 = []
+    for word in sentence_1:
+        nega_posi_list_1.append(nega_posi.predict(word))
+    score_1 = nega_posi_list_1.count('positive') / len(nega_posi_list_1)
+    sentence_2 = scrape(req.text2)
+    nega_posi_list_2 = []
+    for word in sentence_2:
+        nega_posi_list_2.append(nega_posi.predict(word))
+    score_2 = nega_posi_list_2.count('positive') / len(nega_posi_list_2)
+    return {"res": "ok", "score_1": score_1, "score_2": score_2}
