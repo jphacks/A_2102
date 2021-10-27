@@ -12,11 +12,11 @@ class NegaPogi():
         "cl-tohoku/bert-base-japanese-whole-word-masking")
     model.load_adapter(adapter_path)
 
-    def predict(self, sentence) -> str:
+    def predict(self, sentence) -> int:
         token_ids = self.tokenizer.convert_tokens_to_ids(
             self.tokenizer.tokenize(sentence))
         input_tensor = torch.tensor([token_ids])
         outputs = self.model(input_tensor, adapter_names=['sst-2'])
         result = torch.argmax(outputs[0]).item()
 
-        return 'positive' if result == 1 else 'negative'
+        return result
