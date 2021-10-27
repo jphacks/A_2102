@@ -4,7 +4,7 @@ gunicorn==20.0.4
 uvicorn==0.15.0
 pydantic==1.8.2
 # negaposi
-torch==1.9.0
+torch==1.4.0
 git+https://github.com/adapter-hub/adapter-transformers.git
 fugashi==1.1.1
 ipadic==1.0.0
