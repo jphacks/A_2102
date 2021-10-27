@@ -24,7 +24,7 @@ app.add_middleware(
 
 
 def make_score(text) -> float:
-    # sentence = scrape(text)
+    sentence = scrape(text)
     sentence = []
     if text == "おにぎり":
         sentence = ["おにぎりは美味しい", "おにぎりは最高", "おにぎりはまずい"]
