@@ -65,7 +65,7 @@ def scrape(search_word) -> list:
             contents.extend(re.findall(nihongo, str(
                 the_contents_of_body_without_body_tags[i])))
 
-        contents = [i for i in contents if len(i) > 4]
+        contents = [i for i in contents if 4 < len(i) < 30]
 
         the_contents_of_body_without_body_tags.clear()
         the_contents_of_body_without_body_tags = "".join(contents)
@@ -74,7 +74,7 @@ def scrape(search_word) -> list:
         contents = the_contents_of_body_without_body_tags.split('。')
 
         dst_content = [s for s in contents if not re.match(
-            '.*\d{5,}.*', s) and search_word in s and len(s) < 30]
+            '.*\d{5,}.*', s) and search_word in s]
 
         sentence_list.extend(dst_content)
 
