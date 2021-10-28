@@ -83,9 +83,12 @@ def scrape(search_word) -> list:
 
 
 def get_thumbnail(word) -> str:
-    url = f'https://ja.wikipedia.org/api/rest_v1/page/summary/{word}'
-    response = requests.get(url)
-    jsonData = response.json()
-    img_source = jsonData['thumbnail']['source']
+    try:
+        url = f'https://ja.wikipedia.org/api/rest_v1/page/summary/{word}'
+        response = requests.get(url)
+        jsonData = response.json()
+        img_source = jsonData['thumbnail']['source']
+    except:
+        return ""
 
     return img_source
