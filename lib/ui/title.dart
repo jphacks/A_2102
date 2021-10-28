@@ -1,57 +1,93 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'input_text.dart';
 
 class TitleScreen extends StatelessWidget {
+  final text1FocusNode = FocusNode();
+  final text2FocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("ぷんぷく侍App", style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.yellow,
       ),
-      home: MyHomePage(),
+
+      body: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextFormField(
+              focusNode: text1FocusNode,
+              decoration: const InputDecoration(
+                hintText:'おにぎり'
+              ),
+            ),
+            TextFormField(
+              focusNode: text2FocusNode,
+              decoration: const InputDecoration(
+                  hintText:'パスタ'
+              ),
+            ),
+            RaisedButton(
+              child: Text('submit'),
+              onPressed:
+                    () => Get.to(inputCompare(),
+                    ),
+            ),
+
+          ]
+        )
+      )
+      // body: Center(
+      //   child: ElevatedButton(
+      //     child: Text("Go to Other"),
+      //     onPressed: () => Get.to(inputCompare()),
+      //   ),
+      // ),
+
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.contacts),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.history),
+      //       label: 'History',
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final cnt = 0.obs;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // drawer: MyDrawer(),
       appBar: AppBar(
-        title: Text("title"),
+        title: Text("ぷんぷく侍どっち行く〜", style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.yellow,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        child: Container(
+          child: Obx(() => Text("${cnt.value}")),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
+        onPressed: () => cnt.value++,
       ),
     );
   }
