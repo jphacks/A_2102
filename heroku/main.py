@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from scraping import get_thumbnail, scrape
 from inference import NegaPogi
-from scraping import scrape
 from pydantic import BaseModel
 import random
 
@@ -55,6 +55,10 @@ def test(req: ReqText):
 
 @app.post("/comparison/")
 def comparison(req: ReqText):
-    score_1 = make_score(req.text1)
-    score_2 = make_score(req.text2)
-    return {"res": "ok", "score_1": score_1, "score_2": score_2}
+    text_1 = req.text1
+    text_2 = req.text2
+    image_url_1 = get_thumbnail(text_1)
+    image_url_2 = get_thumbnail(text_2)
+    score_1 = make_score(text_1)
+    score_2 = make_score(text_2)
+    return {"res": "ok", "image_url_1": image_url_1, "image_url_2": image_url_2, "score_1": score_1, "score_2": score_2}

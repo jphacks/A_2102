@@ -7,6 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1TEVr9GmVm3odGl7ed_TaA8NSDQw_8xNF
 """
 
+import json
 import requests
 import re
 from bs4 import BeautifulSoup
@@ -79,3 +80,12 @@ def scrape(search_word) -> list:
         sentence_list.extend(dst_content)
 
     return sentence_list
+
+
+def get_thumbnail(word) -> str:
+    url = f'https://ja.wikipedia.org/api/rest_v1/page/summary/{word}'
+    response = requests.get(url)
+    jsonData = response.json()
+    img_source = jsonData['thumbnail']['source']
+
+    return img_source
