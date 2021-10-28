@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<BondText> createBondText(String text1, String text2) async {
+Future<NegaposiRes> createNegaposiRes(String text1, String text2) async {
   final response = await http.post(
-    Uri.parse('https://a2102-fast-api.herokuapp.com/test/'),
+    Uri.parse('https://a2102-fast-api.herokuapp.com/comparison/'),
     headers: <String, String>{
       'accept': 'application/json',
       'Content-Type': 'application/json'
@@ -15,27 +15,27 @@ Future<BondText> createBondText(String text1, String text2) async {
   );
 
   if (response.statusCode == 200) {
-    return BondText.fromJson(jsonDecode(response.body));
+    return NegaposiRes.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to create text.');
   }
 }
 
-class BondText {
+class NegaposiRes {
   final String res;
-  final String text;
+  final double score_1;
+  final double score_2;
 
-  BondText({required this.res, required this.text});
+  NegaposiRes(
+      {required this.res, required this.score_1, required this.score_2});
 
-  factory BondText.fromJson(Map<String, dynamic> json) {
-    return BondText(
-      res: json['res'],
-      text: json['text'],
-    );
+  factory NegaposiRes.fromJson(Map<String, dynamic> json) {
+    return NegaposiRes(
+        res: json['res'], score_1: json['score_1'], score_2: json['score_2']);
   }
 }
 
-class TestCommunicationScreen extends StatelessWidget {
+class NegaposiScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,24 +43,24 @@ class TestCommunicationScreen extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TestApiApp(),
+      home: NegaposiClientApp(),
     );
   }
 }
 
-class TestApiApp extends StatefulWidget {
-  const TestApiApp({Key? key}) : super(key: key);
+class NegaposiClientApp extends StatefulWidget {
+  const NegaposiClientApp({Key? key}) : super(key: key);
 
   @override
-  _TestApiAppState createState() {
-    return _TestApiAppState();
+  _NegaposiClientAppState createState() {
+    return _NegaposiClientAppState();
   }
 }
 
-class _TestApiAppState extends State<TestApiApp> {
+class _NegaposiClientAppState extends State<NegaposiClientApp> {
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
-  Future<BondText>? _futureText;
+  Future<NegaposiRes>? _negaposiRes;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class _TestApiAppState extends State<TestApiApp> {
         body: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8.0),
-          child: (_futureText == null) ? buildColumn() : buildFutureBuilder(),
+          child: (_negaposiRes == null) ? buildColumn() : buildFutureBuilder(),
         ),
       ),
     );
@@ -93,8 +93,8 @@ class _TestApiAppState extends State<TestApiApp> {
         ElevatedButton(
           onPressed: () {
             setState(() {
-              _futureText =
-                  createBondText(_controller1.text, _controller2.text);
+              _negaposiRes =
+                  createNegaposiRes(_controller1.text, _controller2.text);
             });
           },
           child: const Text('Create Data'),
@@ -103,12 +103,18 @@ class _TestApiAppState extends State<TestApiApp> {
     );
   }
 
-  FutureBuilder<BondText> buildFutureBuilder() {
-    return FutureBuilder<BondText>(
-      future: _futureText,
+  FutureBuilder<NegaposiRes> buildFutureBuilder() {
+    return FutureBuilder<NegaposiRes>(
+      future: _negaposiRes,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text(snapshot.data!.text);
+          return Column(
+            children: [
+              Text(snapshot.data!.res),
+              Text(snapshot.data!.score_1.toString()),
+              Text(snapshot.data!.score_2.toString()),
+            ],
+          );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
