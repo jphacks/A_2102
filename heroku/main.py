@@ -26,8 +26,8 @@ app.add_middleware(
 
 def make_score(text) -> float:
     sentence = scrape(text)
-    if len(sentence) > 5:
-        sentence = random.sample(sentence, 5)
+    if len(sentence) > 10:
+        sentence = random.sample(sentence, 10)
     nega_posi_list = []
     if len(sentence) == 0:
         return 0
