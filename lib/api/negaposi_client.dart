@@ -9,7 +9,8 @@ Future<NegaposiRes> createNegaposiRes(String text1, String text2) async {
     Uri.parse('https://a2102-fast-api.herokuapp.com/comparison/'),
     headers: <String, String>{
       'accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     },
     body: jsonEncode(<String, String>{'text1': text1, 'text2': text2}),
   );
