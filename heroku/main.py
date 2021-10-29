@@ -64,17 +64,18 @@ def comparison(req: ReqText):
     image_url_1 = get_thumbnail(text_1)
     image_url_2 = get_thumbnail(text_2)
     sentence_1, site_url_1 = make_sentence(text_1)
-    sample_sentence_1 = random.sample(sentence_1, 3)
+    # sample_sentence_1 = random.sample(sentence_1, 3)
     score_1 = make_score(sentence_1)
     sentence_2, site_url_2 = make_sentence(text_2)
-    sample_sentence_2 = random.sample(sentence_2, 3)
+    # sample_sentence_2 = random.sample(sentence_2, 3)
     score_2 = make_score(sentence_2)
-    return {"res": "ok", "image_url_1": image_url_1,
+    return {"res": "ok",
+            "image_url_1": image_url_1,
             "image_url_2": image_url_2,
             "score_1": score_1,
             "score_2": score_2,
-            "sentence_1": sample_sentence_1,
-            "sentence_2": sample_sentence_2,
+            "sentence_1": sentence_1,
+            "sentence_2": sentence_2,
             "site_url_1": site_url_1,
             "site_url_2": site_url_2
             }
