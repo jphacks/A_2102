@@ -24,8 +24,12 @@ app.add_middleware(
 )
 
 
-def make_score(text) -> float:
+def make_sentence(text) -> list:
     sentence, site_url = scrape(text)
+    return sentence, site_url
+
+
+def make_score(sentence) -> float:
     if len(sentence) > 10:
         sentence = random.sample(sentence, 10)
     nega_posi_list = []
@@ -34,8 +38,7 @@ def make_score(text) -> float:
     for word in sentence:
         nega_posi_list.append(nega_posi.predict(word))
     score = nega_posi_list.count(1) / len(nega_posi_list)
-    display_sentence = random.sample(sentence, 3)
-    return score, display_sentence, site_url
+    return score
 
 
 class ReqText(BaseModel):
@@ -60,14 +63,18 @@ def comparison(req: ReqText):
     text_2 = req.text2
     image_url_1 = get_thumbnail(text_1)
     image_url_2 = get_thumbnail(text_2)
-    score_1, sentence_1, site_url_1 = make_score(text_1)
-    score_2, sentence_2, site_url_2 = make_score(text_2)
+    sentence_1, site_url_1 = make_sentence(text_1)
+    sample_sentence_1 = random.sample(sentence_1, 3)
+    score_1 = make_score(sentence_1)
+    sentence_2, site_url_2 = make_sentence(text_2)
+    sample_sentence_2 = random.sample(sentence_2, 3)
+    score_2 = make_score(sentence_2)
     return {"res": "ok", "image_url_1": image_url_1,
             "image_url_2": image_url_2,
             "score_1": score_1,
             "score_2": score_2,
-            "sentence_1": sentence_1,
-            "sentence_2": sentence_2,
+            "sentence_1": sample_sentence_1,
+            "sentence_2": sample_sentence_2,
             "site_url_1": site_url_1,
             "site_url_2": site_url_2
             }
