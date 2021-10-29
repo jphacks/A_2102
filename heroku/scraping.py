@@ -32,11 +32,13 @@ def scrape(search_word) -> list:
     nandemo = re.compile('.+')
 
     sentence_list = []
+    site_url_list = []
 
     # ページ解析と結果の出力
     for site in search_site_list:
         site_url_raw = site['href'].replace('/url?q=', '')
         site_url = site_url_raw[:site_url_raw.find("&sa")]
+        site_url_list.append(site_url)
         html = requests.get(site_url).content
         site_soup = BeautifulSoup(html, 'html.parser')
 
@@ -79,7 +81,7 @@ def scrape(search_word) -> list:
 
         sentence_list.extend(dst_content)
 
-    return sentence_list
+    return sentence_list, site_url_list
 
 
 def get_thumbnail(word) -> str:
