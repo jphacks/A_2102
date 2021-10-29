@@ -119,7 +119,7 @@ class ComparisonResultScreen extends StatelessWidget {
                   ),
                   child: TextButton(
                     child: Text("NEXT", style : TextStyle(fontWeight: FontWeight.w600)),
-                    onPressed: () => {},
+                    onPressed: () => { Get.toNamed("/sentences") },
                     style: TextButton.styleFrom(
                       primary: Colors.black,
                     ),
