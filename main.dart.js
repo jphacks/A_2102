@@ -7424,7 +7424,7 @@ a6h(a,b){var s=0,r=A.a7(t.gh),q,p,o,n,m
 var $async$a6h=A.a3(function(c,d){if(c===1)return A.a4(d,r)
 while(true)switch(s){case 0:p=A.vm("https://a2102-fast-api.herokuapp.com/comparison/",0,null)
 o=t.N
-n=A.aA(["accept","application/json","Content-Type","application/json"],o,o)
+n=A.aA(["accept","application/json","Content-Type","application/json","Access-Control-Allow-Origin","*"],o,o)
 s=3
 return A.ac(A.asS(p,B.ap.GB(A.aA(["text1",a,"text2",b],o,o),null),n),$async$a6h)
 case 3:m=d
