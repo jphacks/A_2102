@@ -23,7 +23,7 @@ jobs:
           flutter config --enable-web
           flutter pub get
       - name: Build
-        run: flutter build web --release
+        run: flutter build web
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
