@@ -7,7 +7,7 @@ class ComparisonResultScreen extends StatelessWidget {
     // 更新された変数にアクセス
     return Scaffold(
       appBar: AppBar(
-          title: Text("ぷんぷく侍どっち行く〜", style: TextStyle(color: Colors.black)),
+          title: Text("比較結果", style: TextStyle(color: Colors.black)),
           backgroundColor: Colors.yellow),
       body: Center(
         child: Padding(
