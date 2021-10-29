@@ -43,10 +43,9 @@ def make_score(sentence) -> float:
 
 
 def make_sample_sentence(sentence) -> list:
-    sample = []
-    if sentence != []:
-        sample = random.sample(sentence, 3)
-    return sample
+    if len(sentence) > 3:
+        sentence = random.sample(sentence, 3)
+    return sentence
 
 
 class ReqText(BaseModel):
