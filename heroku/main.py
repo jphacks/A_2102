@@ -35,7 +35,7 @@ def make_score(sentence) -> float:
         sentence = random.sample(sentence, 10)
     nega_posi_list = []
     if len(sentence) == 0:
-        return 0
+        return 0.0
     for word in sentence:
         nega_posi_list.append(nega_posi.predict(word))
     score = nega_posi_list.count(1) / len(nega_posi_list)
@@ -43,10 +43,9 @@ def make_score(sentence) -> float:
 
 
 def make_sample_sentence(sentence) -> list:
-    sample = []
-    if sentence != []:
-        sample = random.sample(sentence, 3)
-    return sample
+    if len(sentence) > 3:
+        sentence = random.sample(sentence, 3)
+    return sentence
 
 
 class ReqText(BaseModel):
