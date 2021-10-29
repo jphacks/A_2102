@@ -1,4 +1,4 @@
-import 'package:a_2102/api/negaposi.dart';
+import 'package:a_2102/api/negaposi_client.dart';
 import 'package:a_2102/api/test_communication.dart';
 import 'package:a_2102/pages/view/comparison_result.dart';
 import 'package:a_2102/pages/view/scraping_screen.dart';
@@ -17,6 +17,6 @@ void main() {
         GetPage(name: '/result', page: () => ComparisonResultScreen()),
         GetPage(name: '/sentences', page: () => SentencesScreen()),
       ],
-    )
+    ),
   );
 }

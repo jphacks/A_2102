@@ -11,10 +11,7 @@ Future<BondText> createBondText(String text1, String text2) async {
       'accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: jsonEncode(<String, String>{
-      'Text1': text1,
-      'Text2': text2
-    }),
+    body: jsonEncode(<String, String>{'text1': text1, 'text2': text2}),
   );
 
   if (response.statusCode == 200) {
@@ -96,7 +93,8 @@ class _TestApiAppState extends State<TestApiApp> {
         ElevatedButton(
           onPressed: () {
             setState(() {
-              _futureText = createBondText(_controller1.text, _controller2.text);
+              _futureText =
+                  createBondText(_controller1.text, _controller2.text);
             });
           },
           child: const Text('Create Data'),

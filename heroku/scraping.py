@@ -7,6 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1TEVr9GmVm3odGl7ed_TaA8NSDQw_8xNF
 """
 
+import json
 import requests
 import re
 from bs4 import BeautifulSoup
@@ -31,11 +32,13 @@ def scrape(search_word) -> list:
     nandemo = re.compile('.+')
 
     sentence_list = []
+    site_url_list = []
 
     # ページ解析と結果の出力
     for site in search_site_list:
         site_url_raw = site['href'].replace('/url?q=', '')
         site_url = site_url_raw[:site_url_raw.find("&sa")]
+        site_url_list.append(site_url)
         html = requests.get(site_url).content
         site_soup = BeautifulSoup(html, 'html.parser')
 
@@ -78,4 +81,16 @@ def scrape(search_word) -> list:
 
         sentence_list.extend(dst_content)
 
-    return sentence_list
+    return sentence_list, site_url_list
+
+
+def get_thumbnail(word) -> str:
+    try:
+        url = f'https://ja.wikipedia.org/api/rest_v1/page/summary/{word}'
+        response = requests.get(url)
+        jsonData = response.json()
+        img_source = jsonData['thumbnail']['source']
+    except:
+        return ""
+
+    return img_source
