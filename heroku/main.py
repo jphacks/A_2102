@@ -34,7 +34,7 @@ def make_score(sentence) -> float:
         sentence = random.sample(sentence, 10)
     nega_posi_list = []
     if len(sentence) == 0:
-        return 0
+        return 0.0
     for word in sentence:
         nega_posi_list.append(nega_posi.predict(word))
     score = nega_posi_list.count(1) / len(nega_posi_list)
