@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "22122327598",
+    "project_id": "jphacks-a2102",
+    "storage_bucket": "jphacks-a2102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22122327598:android:c253053e15aa537c1179bf",
+        "android_client_info": {
+          "package_name": "com.jphacks2021.a_2102"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22122327598-003lh9bhchgvn419caedtic66t8frun2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRvTRGo_wvjfFEnV2DD6daYeVOY4og3_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22122327598-003lh9bhchgvn419caedtic66t8frun2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
