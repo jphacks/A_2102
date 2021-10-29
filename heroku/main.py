@@ -10,7 +10,8 @@ app = FastAPI()
 nega_posi = NegaPogi()
 
 origins = [
-    "https://jphacks.github.io/A_2102",
+    "https://a2102-fast-api.herokuapp.com",
+    "https://jphacks.github.io",
     "http://localhost",
     "http://localhost:8080",
 ]
