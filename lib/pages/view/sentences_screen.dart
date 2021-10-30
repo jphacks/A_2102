@@ -26,7 +26,6 @@ class SentencesScreen extends StatelessWidget {
           backgroundColor: Colors.yellow),
       body: SingleChildScrollView(
         child: Center(
-          //
           child: Padding(
             padding: const EdgeInsets.all(35.0),
             child: Column(children: [
@@ -34,11 +33,16 @@ class SentencesScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Container(alignment: Alignment.topLeft,
-                child: Text(item1, style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ))),
+                child: Column(
+                  children: [
+                    Text(item1, style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                          )),
+                    Image.network(responses.imageUrl_1)
+                  ],
+                )),
               ),
               Container(
                   decoration: BoxDecoration(
