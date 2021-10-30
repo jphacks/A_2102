@@ -81,11 +81,16 @@ class SentencesScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Container(alignment: Alignment.topLeft,
-                child: Text(item2, style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ))),
+                child: Column(
+                  children: [
+                    Text(item2, style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                          )),
+                    Image.network(responses.imageUrl_2)
+                  ],
+                )),
               ),
               Container(
                   decoration: BoxDecoration(
