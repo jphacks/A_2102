@@ -18,7 +18,7 @@ void main() async{
         GetPage(name: '/result', page: () => ComparisonResultScreen()),
         GetPage(name: '/sentences', page: () => SentencesScreen()),
         GetPage(name: '/timeline', page: () => TimeLine()),
-      ],
+      ],//や
     ),
   );
 }
