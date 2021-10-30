@@ -36,7 +36,7 @@ class ComparisonResultScreen extends StatelessWidget {
                     color: Colors.red,
                     fontWeight: FontWeight.w600,
                   )),
-              Text("これに決めたでござるペンよ🐧",
+              Text("これで決まりでござるペンよ🐧",
                   style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.w600,

@@ -5,6 +5,24 @@ import 'package:a_2102/pages/view/models/negaposi_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+Future<NegaposiRes> createNegaposiRes(String text1, String text2) async {
+  final response = await http.post(
+    Uri.parse('https://a2102-fast-api.herokuapp.com/comparison/'),
+    headers: <String, String>{
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: jsonEncode(<String, String>{'text1': text1, 'text2': text2}),
+  );
+
+  if (response.statusCode == 200) {
+    return NegaposiRes.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to create text.');
+  }
+}
+
 FutureBuilder<NegaposiRes> getNegaposiRes(_negaposiRes, member) {
     return FutureBuilder<NegaposiRes>(
       future: _negaposiRes,

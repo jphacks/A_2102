@@ -62,33 +62,3 @@ class TitleScreen extends StatelessWidget {
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final cnt = 0.obs;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // drawer: MyDrawer(),
-      appBar: AppBar(
-        title: Text("ぷんぷく侍どっち行く〜", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.yellow,
-      ),
-      body: Center(
-        child: Container(
-          child: Obx(() => Text("${cnt.value}")),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-        onPressed: () => cnt.value++,
-      ),
-    );
-  }
-}

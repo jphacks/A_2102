@@ -60,97 +60,97 @@ class NegaposiRes {
   }
 }
 
-class NegaposiScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'API Test Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: NegaposiClientApp(),
-    );
-  }
-}
+// class NegaposiScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'API Test Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: NegaposiClientApp(),
+//     );
+//   }
+// }
 
-class NegaposiClientApp extends StatefulWidget {
-  const NegaposiClientApp({Key? key}) : super(key: key);
+// class NegaposiClientApp extends StatefulWidget {
+//   const NegaposiClientApp({Key? key}) : super(key: key);
 
-  @override
-  _NegaposiClientAppState createState() {
-    return _NegaposiClientAppState();
-  }
-}
+//   @override
+//   _NegaposiClientAppState createState() {
+//     return _NegaposiClientAppState();
+//   }
+// }
 
-class _NegaposiClientAppState extends State<NegaposiClientApp> {
-  final TextEditingController _controller1 = TextEditingController();
-  final TextEditingController _controller2 = TextEditingController();
-  Future<NegaposiRes>? _negaposiRes;
+// class _NegaposiClientAppState extends State<NegaposiClientApp> {
+//   final TextEditingController _controller1 = TextEditingController();
+//   final TextEditingController _controller2 = TextEditingController();
+//   Future<NegaposiRes>? _negaposiRes;
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Create Data Example'),
-        ),
-        body: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(8.0),
-          child: (_negaposiRes == null) ? buildColumn() : buildFutureBuilder(),
-        ),
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: const Text('Create Data Example'),
+//         ),
+//         body: Container(
+//           alignment: Alignment.center,
+//           padding: const EdgeInsets.all(8.0),
+//           child: (_negaposiRes == null) ? buildColumn() : buildFutureBuilder(),
+//         ),
+//       ),
+//     );
+//   }
 
-  Column buildColumn() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        TextField(
-          controller: _controller1,
-          decoration: const InputDecoration(hintText: 'テキストを入力してください'),
-        ),
-        TextField(
-          controller: _controller2,
-          decoration: const InputDecoration(hintText: 'テキストを入力してください'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _negaposiRes =
-                  createNegaposiRes(_controller1.text, _controller2.text);
-            });
-          },
-          child: const Text('Create Data'),
-        ),
-      ],
-    );
-  }
+//   Column buildColumn() {
+//     return Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: <Widget>[
+//         TextField(
+//           controller: _controller1,
+//           decoration: const InputDecoration(hintText: 'テキストを入力してください'),
+//         ),
+//         TextField(
+//           controller: _controller2,
+//           decoration: const InputDecoration(hintText: 'テキストを入力してください'),
+//         ),
+//         ElevatedButton(
+//           onPressed: () {
+//             setState(() {
+//               _negaposiRes =
+//                   createNegaposiRes(_controller1.text, _controller2.text);
+//             });
+//           },
+//           child: const Text('Create Data'),
+//         ),
+//       ],
+//     );
+//   }
 
-  FutureBuilder<NegaposiRes> buildFutureBuilder() {
-    return FutureBuilder<NegaposiRes>(
-      future: _negaposiRes,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Column(
-            children: [
-              Text(snapshot.data!.res),
-              Text(snapshot.data!.imageUrl_1),
-              Text(snapshot.data!.imageUrl_2),
-              Text(snapshot.data!.score_1.toString()),
-              Text(snapshot.data!.score_2.toString()),
-              Text(utf8.decode(snapshot.data!.sentence_1.toString().runes.toList())),
-              Text(utf8.decode(snapshot.data!.sentence_2.toString().runes.toList())),
-              Text(snapshot.data!.siteUrl_1.toString()),
-              Text(snapshot.data!.siteUrl_2.toString()),
-            ],
-          );
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-        return const CircularProgressIndicator();
-      },
-    );
-  }
-}
+  // FutureBuilder<NegaposiRes> buildFutureBuilder() {
+  //   return FutureBuilder<NegaposiRes>(
+  //     future: _negaposiRes,
+  //     builder: (context, snapshot) {
+  //       if (snapshot.hasData) {
+  //         return Column(
+  //           children: [
+  //             Text(snapshot.data!.res),
+  //             Text(snapshot.data!.imageUrl_1),
+  //             Text(snapshot.data!.imageUrl_2),
+  //             Text(snapshot.data!.score_1.toString()),
+  //             Text(snapshot.data!.score_2.toString()),
+  //             Text(utf8.decode(snapshot.data!.sentence_1.toString().runes.toList())),
+  //             Text(utf8.decode(snapshot.data!.sentence_2.toString().runes.toList())),
+  //             Text(snapshot.data!.siteUrl_1.toString()),
+  //             Text(snapshot.data!.siteUrl_2.toString()),
+  //           ],
+  //         );
+  //       } else if (snapshot.hasError) {
+  //         return Text('${snapshot.error}');
+  //       }
+  //       return const CircularProgressIndicator();
+  //     },
+  //   );
+  // }
+//}

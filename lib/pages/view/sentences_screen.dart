@@ -10,14 +10,11 @@ class SentencesScreen extends StatelessWidget {
   String item2 = Get.arguments[2];
   @override
   Widget build(context) {
-    var sentences1 = [], sentences2 = [];
-    for(int i = 0; i < responses.sentence_1.length; i++){
-      sentences1.add(utf8.decode(responses.sentence_1[i].toString().runes.toList()));
-    }
-    for(int i = 0; i < responses.sentence_2.length; i++){
-      sentences2.add(utf8.decode(responses.sentence_2[i].toString().runes.toList()));
-    }
     var flag = true.obs;
+    var sentences1 = [], sentences2 = [];
+    for(int i = 0; i < responses.sentence_1.length; i++) sentences1.add(utf8.decode(responses.sentence_1[i].toString().runes.toList()));
+    for(int i = 0; i < responses.sentence_2.length; i++) sentences2.add(utf8.decode(responses.sentence_2[i].toString().runes.toList()));
+
     // 更新された変数にアクセス
     return Scaffold(
       appBar: AppBar(
