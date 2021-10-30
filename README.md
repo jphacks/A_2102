@@ -1,6 +1,7 @@
 # ペンギンのケジメ！
 
 ![スプラッシュ画面](https://user-images.githubusercontent.com/51113946/139517390-f6173507-6a9b-44fb-b671-407007611d35.png)
+![messageImage_1635532418220](https://user-images.githubusercontent.com/68315789/139520838-eceb88b0-685b-4cf9-8401-574cd216dc5a.jpg)
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
