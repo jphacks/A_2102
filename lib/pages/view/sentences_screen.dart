@@ -50,8 +50,8 @@ class SentencesScreen extends StatelessWidget {
                       border: Border.all(color: Colors.black)),
                   padding:
                       new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                  child: sentences1[1].isEmpty
-                      ? new Text(sentences1[0])
+                  child: setence_string1.isEmpty
+                      ? new Text("評価可能な文章が見つかりませんでした")
                       : new Column(
                           children: <Widget>[
                             Text(setence_string1),
@@ -98,8 +98,8 @@ class SentencesScreen extends StatelessWidget {
                       border: Border.all(color: Colors.black)),
                   padding:
                       new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                  child: sentences2[1].isEmpty
-                      ? new Text(sentences2[0])
+                  child: setence_string2.isEmpty
+                      ? new Text("評価可能な文章が見つかりませんでした")
                       : new Column(
                           children: <Widget>[
                             Text(setence_string2),
