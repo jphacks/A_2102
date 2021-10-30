@@ -128,6 +128,11 @@ class SentencesScreen extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.toNamed('/timeline'),
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

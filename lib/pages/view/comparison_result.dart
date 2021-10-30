@@ -1,5 +1,6 @@
 import 'package:a_2102/pages/view/controllers/negaposi_controller.dart';
 import 'package:a_2102/pages/view/models/negaposi_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +8,12 @@ class ComparisonResultScreen extends StatelessWidget {
   NegaposiRes responses = Get.arguments[0];
   String item1 = Get.arguments[1];
   String item2 = Get.arguments[2];
+  Future<void> AddDB() async {
+  await FirebaseFirestore.instance
+      .collection('data')
+      .add({'item_1': item1, 'item_2': item2,'score_1': responses.score_1.toString(),'score_2': responses.score_2.toString()});
+  }
+
 
   @override
   Widget build(context) {
@@ -135,7 +142,7 @@ class ComparisonResultScreen extends StatelessWidget {
                   ),
                   child: TextButton(
                     child: Text("NEXT", style : TextStyle(fontWeight: FontWeight.w600)),
-                    onPressed: () => { Get.toNamed("/sentences", arguments: [responses, item1, item2]) },
+                    onPressed: () => { AddDB(), Get.toNamed("/sentences", arguments: [responses, item1, item2]) },
                     style: TextButton.styleFrom(
                       primary: Colors.black,
                     ),
