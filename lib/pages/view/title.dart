@@ -1,64 +1,84 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'comparison_result.dart';
+import 'package:http/http.dart' as http;
+
+import 'models/negaposi_model.dart';
+
+Future<NegaposiRes> createNegaposiRes(String text1, String text2) async {
+  final response = await http.post(
+    Uri.parse('https://a2102-fast-api.herokuapp.com/comparison/'),
+    headers: <String, String>{
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: jsonEncode(<String, String>{'text1': text1, 'text2': text2}),
+  );
+
+  if (response.statusCode == 200) {
+    return NegaposiRes.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to create text.');
+  }
+}
 
 class TitleScreen extends StatelessWidget {
   final text1FocusNode = FocusNode();
   final text2FocusNode = FocusNode();
+  final TextEditingController _controller1 = TextEditingController();
+  final TextEditingController _controller2 = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("ぷんぷく侍App", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.yellow,
-      ),
-
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextFormField(
-              focusNode: text1FocusNode,
-              decoration: const InputDecoration(
-                hintText:'おにぎり'
+        appBar: AppBar(
+          title: Text("比較する", style: TextStyle(color: Colors.black)),
+          backgroundColor: Colors.yellow,
+        ),
+        body: Container(
+            padding: EdgeInsets.all(16.0),
+            child: Column(children: [
+              TextFormField(
+                controller: _controller1,
+                focusNode: text1FocusNode,
+                decoration: const InputDecoration(hintText: 'おにぎり'),
               ),
-            ),
-            TextFormField(
-              focusNode: text2FocusNode,
-              decoration: const InputDecoration(
-                  hintText:'パスタ'
+              TextFormField(
+                controller: _controller2,
+                focusNode: text2FocusNode,
+                decoration: const InputDecoration(hintText: 'パスタ'),
               ),
-            ),
-            RaisedButton(
-              child: Text('submit'),
-              onPressed:
-                    () => Get.toNamed("/result",
-                    ),
-            ),
+              RaisedButton(
+                  child: Text('submit'),
+                  onPressed:(){
+                        createNegaposiRes(
+                            _controller1.text, _controller2.text).then((value){
+                        Get.toNamed("/result", arguments: [value, _controller1.text, _controller2.text]);});
+                      }),
+            ]))
+        // body: Center(
+        //   child: ElevatedButton(
+        //     child: Text("Go to Other"),
+        //     onPressed: () => Get.to(inputCompare()),
+        //   ),
+        // ),
 
-          ]
-        )
-      )
-      // body: Center(
-      //   child: ElevatedButton(
-      //     child: Text("Go to Other"),
-      //     onPressed: () => Get.to(inputCompare()),
-      //   ),
-      // ),
-
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.contacts),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.history),
-      //       label: 'History',
-      //     ),
-      //   ],
-      // ),
-    );
+        // bottomNavigationBar: BottomNavigationBar(
+        //   items: [
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.contacts),
+        //       label: 'Home',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.history),
+        //       label: 'History',
+        //     ),
+        //   ],
+        // ),
+        );
   }
 }
 

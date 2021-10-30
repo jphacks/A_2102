@@ -1,7 +1,13 @@
+import 'package:a_2102/pages/view/controllers/negaposi_controller.dart';
+import 'package:a_2102/pages/view/models/negaposi_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ComparisonResultScreen extends StatelessWidget {
+  NegaposiRes responses = Get.arguments[0];
+  String item1 = Get.arguments[1];
+  String item2 = Get.arguments[2];
+
   @override
   Widget build(context) {
     // 更新された変数にアクセス
@@ -19,12 +25,18 @@ class ComparisonResultScreen extends StatelessWidget {
             //上部テキスト「結果内容」
             Column(
             children: [
-              Text("結果内容",
+              Text("結果",
                   style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.w600,
                   )),
-              Text("○○○○（名称の表示）",
+                  Text((responses.score_1 > responses.score_2 ? item1 : item2),
+                  style: TextStyle(
+                    fontSize: 28.0,
+                    color: Colors.red,
+                    fontWeight: FontWeight.w600,
+                  )),
+              Text("これに決めたでござるペンよ🐧",
                   style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.w600,
@@ -45,7 +57,7 @@ class ComparisonResultScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text(
-                      "おにぎり",
+                      item1,
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w600,
@@ -53,7 +65,7 @@ class ComparisonResultScreen extends StatelessWidget {
                     ),
                     SizedBox(width:10),
                     Text(
-                      'パスタ',
+                      item2,
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w600,
@@ -65,7 +77,7 @@ class ComparisonResultScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text(
-                      "100点",
+                      (responses.score_1 * 100).toString() + "点",
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w600,
@@ -73,7 +85,7 @@ class ComparisonResultScreen extends StatelessWidget {
                     ),
                     SizedBox(width:10),
                     Text(
-                      '100点',
+                      (responses.score_2 * 100).toString() + "点",
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w600,
@@ -82,25 +94,29 @@ class ComparisonResultScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                      height: 180.0,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
+                SizedBox(
+                  height:180,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        height: (responses.score_1 * 180.0),
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                        ),
                       ),
-                    ),
-                    SizedBox(width:10),
-                    Container(
-                      height: 180.0,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                      ),
-                    )
-                  ],
+                      SizedBox(width:10),
+                      Container(
+                        height: (responses.score_2 * 180.0),
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(height:5),
               ]), //結果グラフ
@@ -119,7 +135,7 @@ class ComparisonResultScreen extends StatelessWidget {
                   ),
                   child: TextButton(
                     child: Text("NEXT", style : TextStyle(fontWeight: FontWeight.w600)),
-                    onPressed: () => { Get.toNamed("/sentences") },
+                    onPressed: () => { Get.toNamed("/sentences", arguments: [responses, item1, item2]) },
                     style: TextButton.styleFrom(
                       primary: Colors.black,
                     ),

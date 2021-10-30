@@ -1,13 +1,22 @@
+import 'dart:convert';
+
+import 'package:a_2102/pages/view/models/negaposi_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SentencesScreen extends StatelessWidget {
+  NegaposiRes responses = Get.arguments[0];
+  String item1 = Get.arguments[1];
+  String item2 = Get.arguments[2];
   @override
   Widget build(context) {
-    String firstHalf =
-        "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.";
-    String secondHalf =
-        "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.";
+    var sentences1 = [], sentences2 = [];
+    for(int i = 0; i < responses.sentence_1.length; i++){
+      sentences1.add(utf8.decode(responses.sentence_1[i].toString().runes.toList()));
+    }
+    for(int i = 0; i < responses.sentence_2.length; i++){
+      sentences2.add(utf8.decode(responses.sentence_2[i].toString().runes.toList()));
+    }
     var flag = true.obs;
     // 更新された変数にアクセス
     return Scaffold(
@@ -26,14 +35,14 @@ class SentencesScreen extends StatelessWidget {
                     border: Border.all(color: Colors.black)),
                 padding:
                     new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                child: secondHalf.isEmpty
-                    ? new Text(firstHalf)
+                child: sentences1[1].isEmpty
+                    ? new Text(sentences1[0])
                     : new Column(
                         children: <Widget>[
                           Obx(
                             () => Text((flag.isTrue)
-                                ? (firstHalf + "...")
-                                : (firstHalf + secondHalf)),
+                                ? (sentences1[0] + "...")
+                                : (sentences1[0] + sentences1[1])),
                           ),
                           InkWell(
                             child: new Row(
@@ -59,14 +68,14 @@ class SentencesScreen extends StatelessWidget {
                     border: Border.all(color: Colors.black)),
                 padding:
                     new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                child: secondHalf.isEmpty
-                    ? new Text(firstHalf)
+                child: sentences2[1].isEmpty
+                    ? new Text(sentences2[0])
                     : new Column(
                         children: <Widget>[
                           Obx(
                             () => Text((flag.isTrue)
-                                ? (firstHalf + "...")
-                                : (firstHalf + secondHalf)),
+                                ? (sentences2[0] + "...")
+                                : (sentences2[0] + sentences2[1])),
                           ),
                           InkWell(
                             child: new Row(

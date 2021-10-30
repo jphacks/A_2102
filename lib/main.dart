@@ -1,7 +1,6 @@
 import 'package:a_2102/api/negaposi_client.dart';
 import 'package:a_2102/api/test_communication.dart';
 import 'package:a_2102/pages/view/comparison_result.dart';
-import 'package:a_2102/pages/view/scraping_screen.dart';
 import 'package:a_2102/pages/view/sentences_screen.dart';
 import 'package:a_2102/pages/view/title.dart';
 import 'package:flutter/material.dart';
